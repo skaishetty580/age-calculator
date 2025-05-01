@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator – Calculate Your Exact Age from Date of Birth</title>
+  <meta name="description" content="Use this free online Age Calculator to find your exact age in years, months, and days from your date of birth. No sign-up needed!">
+  <meta name="keywords" content="age calculator, calculate my age, age from date of birth, how old am I, DOB to age calculator">
+  <meta name="author" content="YourSiteName">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f8f9fa;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="date"] {
+      padding: 10px;
+      font-size: 1rem;
+      width: 100%;
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #333;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a {
+      margin: 0 10px;
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Age Calculator</h1>
+  <div class="container">
+    <label for="dob">Enter your Date of Birth:</label>
+    <input type="date" id="dob">
+    <button onclick="calculateAge()">Calculate My Age</button>
+    <div class="result" id="result"></div>
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-client="ca-pub-XXXXXXXXXXXX"
+         data-ad-slot="YYYYYYYYYY"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <footer>
+    <p>
+      <a href="privacy-policy.html">Privacy Policy</a> |
+      <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+  <script>
+    function calculateAge() {
+      const dob = document.getElementById("dob").value;
+      if (!dob) {
+        alert("Please select your date of birth.");
+        return;
+      }
+
+      const birthDate = new Date(dob);
+      const today = new Date();
+
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      if (days < 0) {
+        months--;
+        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      document.getElementById("result").innerHTML =
+        `You are <strong>${years}</strong> years, <strong>${months}</strong> months, and <strong>${days}</strong> days old.`;
+    }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Age Calculator",
+    "url": "https://www.yoursite.com",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Free online Age Calculator to find your age in years, months, and days from your date of birth.",
+    "author": {
+      "@type": "Person",
+      "name": "Your Name or Brand"
+    },
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</body>
+</html>
