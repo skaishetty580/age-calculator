@@ -1,177 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B301R3J6B2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-B301R3J6B2');
-</script>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Age Calculator – Calculate Your Exact Age from Date of Birth</title>
-  <meta name="description" content="Use this free online Age Calculator to find your exact age in years, months, and days from your date of birth. No sign-up needed!">
-  <meta name="keywords" content="age calculator, calculate my age, age from date of birth, how old am I, DOB to age calculator">
-  <meta name="author" content="https://www.myagecal.com/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Age Calculator – Find Your Age from DOB">
-<meta property="og:description" content="Calculate your age in years, months, and days using your date of birth. 100% free and accurate.">
-<meta property="og:url" content="https://www.myagecal.com/">
-<meta property="og:image" content="https://www.yoursite.com/images/age-calculator-preview.png">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Age Calculator – How Old Am I?">
-<meta name="twitter:description" content="Quickly calculate your age in years, months, and days using this free tool.">
-<meta name="twitter:image" content="https://www.myagecal.com/images/age-calculator-preview.png">
-  
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      background: #f8f9fa;
-      max-width: 600px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .container {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    label {
-      font-weight: bold;
-    }
-    input[type="date"] {
-      padding: 10px;
-      font-size: 1rem;
-      width: 100%;
-      margin-top: 8px;
-      margin-bottom: 16px;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .result {
-      margin-top: 20px;
-      font-size: 1.1rem;
-      color: #333;
-    }
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-    footer a {
-      margin: 0 10px;
-      color: #007bff;
-      text-decoration: none;
-    }
-  </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2329225400901392"
-     crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Use our free online Age Calculator to find your age in years, days, minutes, and discover your zodiac sign and next birthday." />
+    <title>Age Calculator + Zodiac & Birthday Countdown | MyAgeCal</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: auto; padding: 2rem; line-height: 1.6; background: #f7f9fc; color: #333; }
+        h1, h2 { color: #2c3e50; }
+        input, button { padding: 0.5rem; margin-top: 0.5rem; }
+        .section { margin-top: 2rem; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.05); }
+    </style>
 </head>
-  <meta name="google-site-verification" content="PkYwNn2V90No6KHbeQvdBQ3t97zFpMRW4UYtmnuFVEQ" />
 <body>
-  <h1>Age Calculator</h1>
-  <div class="container">
-    <label for="dob">Enter your Date of Birth:</label>
-    <input type="date" id="dob">
-    <button onclick="calculateAge()">Calculate My Age</button>
-    <div class="result" id="result"></div>
-    <ins class="adsbygoogle"
-         style="display:block; text-align:center;"
-         data-ad-client="ca-pub-XXXXXXXXXXXX"
-         data-ad-slot="YYYYYYYYYY"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+    <h1>🧮 Age Calculator</h1>
+    <p>Select your date of birth to calculate your exact age, zodiac sign, and more.</p>
+    <input type="date" id="dob" />
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="results" class="section" style="display:none;">
+        <h2>📊 Your Age</h2>
+        <p id="ageResult"></p>
+        <h2>⏱ Time Since Birth</h2>
+        <p id="detailedAge"></p>
+        <h2>🎂 Next Birthday</h2>
+        <p id="nextBirthday"></p>
+        <h2>🌟 Zodiac Sign</h2>
+        <p id="zodiacSign"></p>
+    </div>
+
     <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
+        function calculate() {
+            const dob = new Date(document.getElementById("dob").value);
+            if (isNaN(dob)) return alert("Please select a valid date.");
+            const now = new Date();
+            const diffMs = now - dob;
+
+            const ageYears = now.getFullYear() - dob.getFullYear();
+            const nextBday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
+            if (nextBday < now) nextBday.setFullYear(nextBday.getFullYear() + 1);
+            const daysToNextBday = Math.ceil((nextBday - now) / (1000 * 60 * 60 * 24));
+
+            const seconds = Math.floor(diffMs / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            // Zodiac
+            const month = dob.getMonth() + 1;
+            const day = dob.getDate();
+            const zodiac = getZodiac(month, day);
+
+            // Results
+            document.getElementById("results").style.display = "block";
+            document.getElementById("ageResult").textContent = `You are approximately ${ageYears} years old.`;
+            document.getElementById("detailedAge").textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+            document.getElementById("nextBirthday").textContent = `Your next birthday is in ${daysToNextBday} days (${nextBday.toDateString()}).`;
+            document.getElementById("zodiacSign").textContent = `Your zodiac sign is ${zodiac}.`;
+        }
+
+        function getZodiac(m, d) {
+            const signs = [
+                ["Capricorn", 1, 19], ["Aquarius", 2, 18], ["Pisces", 3, 20],
+                ["Aries", 4, 19], ["Taurus", 5, 20], ["Gemini", 6, 20],
+                ["Cancer", 7, 22], ["Leo", 8, 22], ["Virgo", 9, 22],
+                ["Libra", 10, 22], ["Scorpio", 11, 21], ["Sagittarius", 12, 21], ["Capricorn", 12, 31]
+            ];
+            for (let i = 0; i < signs.length; i++) {
+                const [sign, month, day] = signs[i];
+                if (m < month || (m === month && d <= day)) return sign;
+            }
+            return "Capricorn";
+        }
     </script>
-  </div>
-
-  <footer>
-    <p>
-      <a href="privacy-policy.html">Privacy Policy</a> |
-      <a href="disclaimer.html">Disclaimer</a>
-    </p>
-  </footer>
-
-  <script>
-    function calculateAge() {
-      const dob = document.getElementById("dob").value;
-      if (!dob) {
-        alert("Please select your date of birth.");
-        return;
-      }
-
-      const birthDate = new Date(dob);
-      const today = new Date();
-
-      let years = today.getFullYear() - birthDate.getFullYear();
-      let months = today.getMonth() - birthDate.getMonth();
-      let days = today.getDate() - birthDate.getDate();
-
-      if (days < 0) {
-        months--;
-        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      }
-
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-
-      document.getElementById("result").innerHTML =
-        `You are <strong>${years}</strong> years, <strong>${months}</strong> months, and <strong>${days}</strong> days old.`;
-    }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Age Calculator",
-    "url": "https://www.yoursite.com",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "All",
-    "description": "Free online Age Calculator to find your age in years, months, and days from your date of birth.",
-    "author": {
-      "@type": "Person",
-      "name": "Your Name or Brand"
-    },
-    "browserRequirements": "Requires JavaScript",
-    "offers": {
-      "@type": "Offer",
-      "price": "0.00",
-      "priceCurrency": "USD"
-    }
-  }
-  </script>
 </body>
 </html>
