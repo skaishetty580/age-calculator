@@ -1,77 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="Use our free online Age Calculator to find your age in years, days, minutes, and discover your zodiac sign and next birthday." />
-    <title>Age Calculator + Zodiac & Birthday Countdown | MyAgeCal</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 700px; margin: auto; padding: 2rem; line-height: 1.6; background: #f7f9fc; color: #333; }
-        h1, h2 { color: #2c3e50; }
-        input, button { padding: 0.5rem; margin-top: 0.5rem; }
-        .section { margin-top: 2rem; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.05); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Age Calculator + Extras | MyAgeCal</title>
+  <meta name="description" content="Calculate your exact age, next birthday, zodiac sign, date differences, future age, and fun birthday facts.">
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; background: #f4f8fb; color: #333; line-height: 1.6; }
+    h1, h2 { color: #2c3e50; }
+    input, button { padding: 0.5rem; margin-top: 0.5rem; }
+    .section { margin-top: 2rem; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 0 6px rgba(0,0,0,0.1); }
+  </style>
 </head>
 <body>
-    <h1>🧮 Age Calculator</h1>
-    <p>Select your date of birth to calculate your exact age, zodiac sign, and more.</p>
-    <input type="date" id="dob" />
-    <button onclick="calculate()">Calculate</button>
+  <h1>MyAgeCal: Ultimate Age Tools</h1>
+  <p>Enter your date of birth to get started:</p>
+  <input type="date" id="dob">
+  <button onclick="calculate()">Calculate</button>
 
-    <div id="results" class="section" style="display:none;">
-        <h2>📊 Your Age</h2>
-        <p id="ageResult"></p>
-        <h2>⏱ Time Since Birth</h2>
-        <p id="detailedAge"></p>
-        <h2>🎂 Next Birthday</h2>
-        <p id="nextBirthday"></p>
-        <h2>🌟 Zodiac Sign</h2>
-        <p id="zodiacSign"></p>
-    </div>
+  <div id="results" class="section" style="display:none;">
+    <h2>📊 Your Age</h2>
+    <p id="ageResult"></p>
+    <h2>⏱ Time Since Birth</h2>
+    <p id="detailedAge"></p>
+    <h2>🎂 Next Birthday</h2>
+    <p id="nextBirthday"></p>
+    <h2>🌟 Zodiac Sign</h2>
+    <p id="zodiacSign"></p>
+    <h2>🎉 Birthday Facts</h2>
+    <p id="birthdayFacts"></p>
+  </div>
 
-    <script>
-        function calculate() {
-            const dob = new Date(document.getElementById("dob").value);
-            if (isNaN(dob)) return alert("Please select a valid date.");
-            const now = new Date();
-            const diffMs = now - dob;
+  <div class="section">
+    <h2>📆 Date Difference Calculator</h2>
+    <input type="date" id="startDate"> to <input type="date" id="endDate">
+    <button onclick="calcDateDiff()">Calculate</button>
+    <p id="dateDiffResult"></p>
+  </div>
 
-            const ageYears = now.getFullYear() - dob.getFullYear();
-            const nextBday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
-            if (nextBday < now) nextBday.setFullYear(nextBday.getFullYear() + 1);
-            const daysToNextBday = Math.ceil((nextBday - now) / (1000 * 60 * 60 * 24));
+  <div class="section">
+    <h2>📅 Age on Future Date</h2>
+    DOB: <input type="date" id="futureDOB"> Future Date: <input type="date" id="futureDate">
+    <button onclick="calcFutureAge()">Calculate</button>
+    <p id="futureAgeResult"></p>
+  </div>
 
-            const seconds = Math.floor(diffMs / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
+  <script>
+    function calculate() {
+      const dob = new Date(document.getElementById("dob").value);
+      if (isNaN(dob)) return alert("Please enter a valid DOB.");
+      const now = new Date();
+      const diffMs = now - dob;
+      const ageYears = now.getFullYear() - dob.getFullYear();
+      const nextBday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
+      if (nextBday < now) nextBday.setFullYear(nextBday.getFullYear() + 1);
+      const daysToNext = Math.ceil((nextBday - now) / (1000 * 60 * 60 * 24));
+      const seconds = Math.floor(diffMs / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const zodiac = getZodiac(dob.getMonth()+1, dob.getDate());
 
-            // Zodiac
-            const month = dob.getMonth() + 1;
-            const day = dob.getDate();
-            const zodiac = getZodiac(month, day);
+      document.getElementById("results").style.display = "block";
+      document.getElementById("ageResult").innerText = `You are approximately ${ageYears} years old.`;
+      document.getElementById("detailedAge").innerText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+      document.getElementById("nextBirthday").innerText = `Your next birthday is in ${daysToNext} days (${nextBday.toDateString()}).`;
+      document.getElementById("zodiacSign").innerText = `Your zodiac sign is ${zodiac}.`;
+      document.getElementById("birthdayFacts").innerText = `You were born on a ${dob.toLocaleDateString('en-US', { weekday: 'long' })}. It's been ${days} days since then.`;
+    }
 
-            // Results
-            document.getElementById("results").style.display = "block";
-            document.getElementById("ageResult").textContent = `You are approximately ${ageYears} years old.`;
-            document.getElementById("detailedAge").textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-            document.getElementById("nextBirthday").textContent = `Your next birthday is in ${daysToNextBday} days (${nextBday.toDateString()}).`;
-            document.getElementById("zodiacSign").textContent = `Your zodiac sign is ${zodiac}.`;
-        }
+    function getZodiac(m, d) {
+      const signs = [["Capricorn",1,19],["Aquarius",2,18],["Pisces",3,20],["Aries",4,19],["Taurus",5,20],
+      ["Gemini",6,20],["Cancer",7,22],["Leo",8,22],["Virgo",9,22],["Libra",10,22],
+      ["Scorpio",11,21],["Sagittarius",12,21],["Capricorn",12,31]];
+      for (let i = 0; i < signs.length; i++) {
+        if (m < signs[i][1] || (m === signs[i][1] && d <= signs[i][2])) return signs[i][0];
+      }
+      return "Capricorn";
+    }
 
-        function getZodiac(m, d) {
-            const signs = [
-                ["Capricorn", 1, 19], ["Aquarius", 2, 18], ["Pisces", 3, 20],
-                ["Aries", 4, 19], ["Taurus", 5, 20], ["Gemini", 6, 20],
-                ["Cancer", 7, 22], ["Leo", 8, 22], ["Virgo", 9, 22],
-                ["Libra", 10, 22], ["Scorpio", 11, 21], ["Sagittarius", 12, 21], ["Capricorn", 12, 31]
-            ];
-            for (let i = 0; i < signs.length; i++) {
-                const [sign, month, day] = signs[i];
-                if (m < month || (m === month && d <= day)) return sign;
-            }
-            return "Capricorn";
-        }
-    </script>
+    function calcDateDiff() {
+      const start = new Date(document.getElementById("startDate").value);
+      const end = new Date(document.getElementById("endDate").value);
+      if (isNaN(start) || isNaN(end)) return alert("Select two valid dates.");
+      const diff = Math.abs(end - start);
+      const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+      document.getElementById("dateDiffResult").innerText = `Difference: ${days} days.`;
+    }
+
+    function calcFutureAge() {
+      const dob = new Date(document.getElementById("futureDOB").value);
+      const target = new Date(document.getElementById("futureDate").value);
+      if (isNaN(dob) || isNaN(target)) return alert("Enter both dates.");
+      let age = target.getFullYear() - dob.getFullYear();
+      if (target.getMonth() < dob.getMonth() || (target.getMonth() === dob.getMonth() && target.getDate() < dob.getDate())) {
+        age--;
+      }
+      document.getElementById("futureAgeResult").innerText = `On ${target.toDateString()}, you will be ${age} years old.`;
+    }
+  </script>
 </body>
 </html>
