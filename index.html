@@ -1,24 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Age Calculator + Extras | MyAgeCal</title>
   <meta name="description" content="Calculate your exact age, next birthday, zodiac sign, date differences, future age, and fun birthday facts.">
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 2rem; background: #f4f8fb; color: #333; line-height: 1.6; }
-    h1, h2 { color: #2c3e50; }
-    input, button { padding: 0.5rem; margin-top: 0.5rem; }
-    .section { margin-top: 2rem; padding: 1rem; background: white; border-radius: 8px; box-shadow: 0 0 6px rgba(0,0,0,0.1); }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fff);
+      color: #333;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    h1 {
+      color: #006064;
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      color: #00796b;
+      margin-top: 1.5rem;
+    }
+    input[type="date"], button {
+      font-size: 1rem;
+      padding: 0.6rem 1rem;
+      margin: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+    button {
+      background-color: #00796b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    .section {
+      margin-top: 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .input-group {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .result p {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
   </style>
 </head>
 <body>
-  <h1>MyAgeCal: Ultimate Age Tools</h1>
-  <p>Enter your date of birth to get started:</p>
-  <input type="date" id="dob">
-  <button onclick="calculate()">Calculate</button>
+  <h1>Ultimate Age Tools</h1>
+  <p style="text-align: center; font-size: 1.1rem; color: #555; max-width: 700px; margin: 0 auto 1.5rem;">
+    MyAgeCal is a free online tool that helps you calculate your current age, find out your zodiac sign, check how many days until your next birthday, and learn fun facts about your birthdate. Everything is processed locally in your browser—no data is saved or shared.
+  </p>
+  <!-- Top AdSense Banner -->
+<ins class="adsbygoogle"
+     style="display:block; text-align:center; margin-bottom: 1.5rem;"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="1234567890"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-  <div id="results" class="section" style="display:none;">
+<div class="input-group">
+    <p style="font-size: 1.1rem;">Enter your date of birth to get started:</p>
+    <input type="date" id="dob">
+    <button onclick="calculate()">Calculate</button>
+  </div>
+
+  <div id="results" class="section result" style="display:none;">
     <h2>📊 Your Age</h2>
     <p id="ageResult"></p>
     <h2>⏱ Time Since Birth</h2>
@@ -31,29 +94,27 @@
     <p id="birthdayFacts"></p>
   </div>
 
-  <div class="section">
-    <h2>📆 Date Difference Calculator</h2>
-    <input type="date" id="startDate"> to <input type="date" id="endDate">
-    <button onclick="calcDateDiff()">Calculate</button>
-    <p id="dateDiffResult"></p>
-  </div>
+<!-- Bottom AdSense -->
+<ins class="adsbygoogle"
+     style="display:block; text-align:center; margin: 2rem 0;"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+     data-ad-slot="9876543210"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-  <div class="section">
-    <h2>📅 Age on Future Date</h2>
-    DOB: <input type="date" id="futureDOB"> Future Date: <input type="date" id="futureDate">
-    <button onclick="calcFutureAge()">Calculate</button>
-    <p id="futureAgeResult"></p>
-  </div>
-
-  <script>
+<script>
     function calculate() {
       const dob = new Date(document.getElementById("dob").value);
       if (isNaN(dob)) return alert("Please enter a valid DOB.");
       const now = new Date();
       const diffMs = now - dob;
-      const ageYears = now.getFullYear() - dob.getFullYear();
-      const nextBday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
+      let ageYears = now.getFullYear() - dob.getFullYear();
+      const m = now.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) ageYears--;
+      let nextBday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
       if (nextBday < now) nextBday.setFullYear(nextBday.getFullYear() + 1);
+      nextBday.setDate(nextBday.getDate() + 1);
       const daysToNext = Math.ceil((nextBday - now) / (1000 * 60 * 60 * 24));
       const seconds = Math.floor(diffMs / 1000);
       const minutes = Math.floor(seconds / 60);
@@ -66,7 +127,7 @@
       document.getElementById("detailedAge").innerText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
       document.getElementById("nextBirthday").innerText = `Your next birthday is in ${daysToNext} days (${nextBday.toDateString()}).`;
       document.getElementById("zodiacSign").innerText = `Your zodiac sign is ${zodiac}.`;
-      document.getElementById("birthdayFacts").innerText = `You were born on a ${dob.toLocaleDateString('en-US', { weekday: 'long' })}. It's been ${days} days since then.`;
+      document.getElementById("birthdayFacts").innerText = `You were born on a ${dob.toLocaleDateString('en-US', { weekday: 'long' })}. It's been ${days} days since then. That’s about ${Math.floor(days / 7)} weeks, or roughly ${ageYears * 12} months. Your birth year was ${dob.getFullYear()}, which started on a ${new Date(dob.getFullYear(), 0, 1).toLocaleDateString('en-US', { weekday: 'long' })}.`;
     }
 
     function getZodiac(m, d) {
@@ -78,26 +139,43 @@
       }
       return "Capricorn";
     }
-
-    function calcDateDiff() {
-      const start = new Date(document.getElementById("startDate").value);
-      const end = new Date(document.getElementById("endDate").value);
-      if (isNaN(start) || isNaN(end)) return alert("Select two valid dates.");
-      const diff = Math.abs(end - start);
-      const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      document.getElementById("dateDiffResult").innerText = `Difference: ${days} days.`;
-    }
-
-    function calcFutureAge() {
-      const dob = new Date(document.getElementById("futureDOB").value);
-      const target = new Date(document.getElementById("futureDate").value);
-      if (isNaN(dob) || isNaN(target)) return alert("Enter both dates.");
-      let age = target.getFullYear() - dob.getFullYear();
-      if (target.getMonth() < dob.getMonth() || (target.getMonth() === dob.getMonth() && target.getDate() < dob.getDate())) {
-        age--;
-      }
-      document.getElementById("futureAgeResult").innerText = `On ${target.toDateString()}, you will be ${age} years old.`;
-    }
   </script>
+<footer style="margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #555; border-top: 1px solid #ccc; padding-top: 1rem;">
+  <p>&copy; 2025 MyAgeCal. All rights reserved.</p>
+  <p>
+    <a href="#" style="color: #006064; text-decoration: underline;">Privacy Policy</a> |
+    <a href="#" style="color: #006064; text-decoration: underline;">Disclaimer</a>
+  </p>
+  
+<div id="policy-content" style="display:none; max-width: 700px; margin: 2rem auto; font-size: 0.95rem; color: #444; text-align: left;">
+  <div id="privacy" style="display:none;">
+    <h2>Privacy Policy</h2>
+    <p>This site does not collect, store, or share any personal data. All calculations are done in your browser, and no input data is transmitted or saved.</p>
+  </div>
+  <div id="disclaimer" style="display:none;">
+    <h2>Disclaimer</h2>
+    <p>MyAgeCal is provided for general information purposes only. It is not intended to be a substitute for professional advice. Use it at your own discretion.</p>
+  </div>
+</div>
+<script>
+  document.querySelectorAll("a[href='#']").forEach(link => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      const text = this.textContent.trim();
+      const privacy = document.getElementById("privacy");
+      const disclaimer = document.getElementById("disclaimer");
+      if (text === "Privacy Policy") {
+        privacy.style.display = "block";
+        disclaimer.style.display = "none";
+      } else if (text === "Disclaimer") {
+        disclaimer.style.display = "block";
+        privacy.style.display = "none";
+      }
+      document.getElementById("policy-content").style.display = "block";
+      document.getElementById("policy-content").scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</footer>
 </body>
 </html>
