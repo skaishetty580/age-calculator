@@ -67,21 +67,32 @@
     MyAgeCal is a free online tool that helps you calculate your current age, find out your zodiac sign, check how many days until your next birthday, and learn fun facts about your birthdate. Everything is processed locally in your browser—no data is saved or shared.
   </p>
   <!-- Top AdSense Banner -->
-<!-- ins class="adsbygoogle"
+<ins class="adsbygoogle"
      style="display:block; text-align:center; margin-bottom: 1.5rem;"
      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="1234567890"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script --> 
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 <div class="input-group">
     <p style="font-size: 1.1rem;">Enter your date of birth to get started:</p>
     <input type="date" id="dob">
     <button onclick="calculate()">Calculate</button>
-  </div>
+  </div >
 
-  <div id="results" class="section result" style="display:none;">
+<div class="section" id="about-age">
+  <h2>🧭 About Age</h2>
+  <p style="font-size: 1rem; color: #555;">
+    Age is a universal marker of our journey through time. From celebrating your first birthday to commemorating key milestones like 18, 30, or 60 years, each age tells a story. At MyAgeCal, we not only calculate how long you've lived — in days, hours, and seconds — but also help you understand what that time means.
+  </p>
+  <p style="font-size: 1rem; color: #555;">
+    Whether you’re preparing for retirement, reminiscing about the past, or curious about what your age says about you, this tool provides a personalized view into your age timeline. Explore your zodiac sign, birthday patterns, and more—all in one place.
+  </p>
+</div>
+
+<div id="results" class="section result" style="display:none;">
+    <p style="font-size: 1rem; color: #555;">Below are the detailed insights into your age including your exact time lived, zodiac sign, and some interesting facts about your birthdate. This section updates automatically based on your input and helps you understand your personal age timeline in greater depth.</p>
     <h2>📊 Your Age</h2>
     <p id="ageResult"></p>
     <h2>⏱ Time Since Birth</h2>
@@ -95,13 +106,13 @@
   </div>
 
 <!-- Bottom AdSense -->
-<!-- ins class="adsbygoogle"
+<ins class="adsbygoogle"
      style="display:block; text-align:center; margin: 2rem 0;"
      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="9876543210"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script -->
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 <script>
     function calculate() {
