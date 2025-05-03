@@ -67,13 +67,13 @@
     MyAgeCal is a free online tool that helps you calculate your current age, find out your zodiac sign, check how many days until your next birthday, and learn fun facts about your birthdate. Everything is processed locally in your browser—no data is saved or shared.
   </p>
   <!-- Top AdSense Banner -->
-<!-- ins class="adsbygoogle"
+<ins class="adsbygoogle"
      style="display:block; text-align:center; margin-bottom: 1.5rem;"
      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="1234567890"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script -->
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 <div class="input-group">
     <p style="font-size: 1.1rem;">Enter your date of birth to get started:</p>
@@ -121,13 +121,13 @@
   </div>
 
 <!-- Bottom AdSense -->
-<!-- ins class="adsbygoogle"
+<ins class="adsbygoogle"
      style="display:block; text-align:center; margin: 2rem 0;"
      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="9876543210"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script -->
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
 <script>
     function calculate() {
@@ -153,7 +153,10 @@
       document.getElementById("detailedAge").innerText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
       document.getElementById("nextBirthday").innerText = `Your next birthday is in ${daysToNext} days (${nextBday.toDateString()}).`;
       document.getElementById("zodiacSign").innerText = `Your zodiac sign is ${zodiac}.`;
-      document.getElementById("birthdayFacts").innerText = `You were born on a ${dob.toLocaleDateString('en-US', { weekday: 'long' })}. It's been ${days} days since then. That’s about ${Math.floor(days / 7)} weeks, or roughly ${ageYears * 12} months. Your birth year was ${dob.getFullYear()}, which started on a ${new Date(dob.getFullYear(), 0, 1).toLocaleDateString('en-US', { weekday: 'long' })}.`;
+      const birthDayPlusOne = new Date(dob);
+birthDayPlusOne.setDate(birthDayPlusOne.getDate() + 1);
+const birthWeekday = birthDayPlusOne.toLocaleDateString('en-US', { weekday: 'long' });
+document.getElementById("birthdayFacts").innerText = `You were born on a ${birthWeekday}. It's been ${days} days since then. That’s about ${Math.floor(days / 7)} weeks, or roughly ${ageYears * 12} months. Your birth year was ${dob.getFullYear()}, which started on a ${new Date(dob.getFullYear(), 0, 1).toLocaleDateString('en-US', { weekday: 'long' })}.`;
     }
 
     function getZodiac(m, d) {
